@@ -10,3 +10,6 @@
  */
 
 // import actionType constants
+import * as types from '../constants/actionTypes.js';
+
+export const AddCommentActionCreator 

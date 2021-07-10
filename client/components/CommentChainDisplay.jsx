@@ -9,8 +9,13 @@
  * ************************************
  */
 
-// import React from 'react';
-// import Comment from './Comment.jsx';
- 
- 
-// const CommentChainDisplay = props => { };
+import React from 'react';
+import Comment from './Comment';
+
+const CommentChainDisplay = props => {
+  console.log('commentChainDisplay...');
+  console.log(props);
+
+
+
+ };
