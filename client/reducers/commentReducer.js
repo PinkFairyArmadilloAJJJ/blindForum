@@ -1,123 +1,162 @@
 /**
  * ************************************
  *
- * @module  marketsReducer
+ * @module  commentReducer
  * @author
  * @date
- * @description reducer for market data
+ * @description reducer for comment data
  *
  * ************************************
  */
 
-/** dummy test case
+ import * as types from '../constants/actionTypes';
+
+// dummy test case
 const initialState = {
-  totalMarkets: 2,
-  totalCards: 4,
-  marketList: [
+  totalComments: 10,
+  lastCommentId: 0010,
+  lastCommentTimestamp: Date.now(),
+  topVotedList: {
+    0003: 32,
+    0007: 20,
+  },
+  commentList: [
     {
-      marketId: 10001,
-      marketLocation: 'Las Vegas',
-      numCards: 1,
-      percentCards: 25
+      commentId: 0003,
+      contents: 'Good point!',
+      metadata: {
+        userId = 0001,
+        timestamp = Date.now(),
+      },
+      votes: {
+        netVotes: 10,
+        upvotes: 12, 
+        downvotes: 2,
+      },
+      parentId: 0001,
+      depthLevel: 1
     },
-    {
-      marketId: 10002,
-      marketLocation: 'Atlanta',
-      numCards: 3,
-      percentCards: 75
-    }
-  ],
-  lastMarketId: 10000,
-  newLocation: ''
-}; 
-*/
-
-import * as types from '../constants/actionTypes';
-
-const initialState = {
-  totalMarkets: 0,
-  totalCards: 0,
-  marketList: [],
-  lastMarketId: 10000,
-  newLocation: '',
+  ]
 };
 
-const marketsReducer = (state = initialState, action) => {
-  let marketList, newMarket, lastMarketId, totalMarkets, totalCards;
+// newComment = {
+//     commentId: state.lastCommentId + 1,
+//     contents: '',
+//     metadata: {
+//         userId = 0,
+//         createTimestamp = Date.now(),
+//         editTimestamp = null,
+//     },
+//     votes: {
+//         netVotes: 0,
+//         upvotes: 0, 
+//         downvotes: 0,
+//     },
+//     parentId: null,
+//     depthLevel: 0
+// }
+
+// const initialState = {
+//   totalComments: 0,
+//   lastCommentId: 0,
+//   lastCommentTimestamp: Date(),
+//   topVotedList: [],
+//   commentList: [],
+// };
+
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.ADD_MARKET:
-      // increment lastMarketId and totalMarkets counters
-      lastMarketId = state.lastMarketId + 1;
-      totalMarkets = state.totalMarkets + 1;
-      // create new market component from provided data
-      newMarket = {
-        marketId: lastMarketId,
-        marketLocation: state.newLocation,
-        numCards: 0,
-        percentCards: 0
-      };
-      // push the new market onto a copy of the market list
-      marketList = state.marketList.slice();
-      marketList.push(newMarket);
+    case types.ADD_COMMENT:
+      // increment lastCommentId and totalComments counters
+      lastCommentId = state.lastCommentId + 1;
+      totalComments = state.totalComments + 1;
+      // create new comment component from provided data
+      newComment = {
+        commentId: state.lastCommentId + 1,
+        contents: action.payload.contents,
+        metadata: {
+          userId = action.payload.userId,
+          createTimestamp = Date.now(),
+          editTimestamp = null,
+        },
+        votes: {
+          netVotes: 0,
+          upvotes: 0, 
+          downvotes: 0,
+        },
+        parentId: action.payload.parentId,
+        depthLevel: commentList.filter((el) => el.commentId === parentId).pop().depthLevel + 1,
+      }
+      // push the new comment onto a copy of the comment list
+      commentList = state.commentList.slice();
+      commentList.push(newComment);
       // update state
       return {
         ...state,
-        totalMarkets,
-        lastMarketId,
-        newLocation: state.newLocation,
-        marketList,
+        totalComments,
+        lastCommentId,
+        commentList,
       };
-
-    case types.SET_NEW_LOCATION:
-      return {
-        ...state,
-        newLocation: action.payload !== state.newLocation ? action.payload : state.newLocation,
-      };
-    
-    case types.ADD_CARD:
-      // extract market component where add button was clicked
-      newMarket = state.marketList.filter((e) => e.marketId === action.payload).pop();
-      // increment numCards and totalCards properties
-      newMarket.numCards += 1;
-      totalCards = state.totalCards + 1;
-      // update percentage property for all cards for every add card operation
-      marketList = state.marketList.map(market => {
-        market.percentCards = totalCards > 0 ? Math.round(((market.numCards / totalCards) * (100 ** 2) + Number.EPSILON)) / 100 : 0;
-        return market;
-      });
-      // reinserts current market component into marketList, 
-      // using the key property to preserve the original ordering of the market components
-      marketList[newMarket.key] = newMarket;
+    case types.EDIT_COMMENT:
+      // extract comment component where add button was clicked
+      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
+      currComment.contents = action.payload.contents;
+      currComment.editTimestamp = Date.now();
+      // reinserts current comment component into commentList
+      commentList[currComment.key] = currComment;
       // update state
       return {
         ...state,
-        totalCards,
-        marketList,
+        commentList,
       };
-
-    case types.DELETE_CARD:
-      // extract market component where delete button was clicked
-      newMarket = state.marketList.filter((e) => e.marketId === action.payload).pop();
-      // a) updates totalCards value to reflect results of delete card operation.
-      // b) ensures delete operation works only on markets with non-negative number of cards.
-      // c) separate check for non-negativity of totalCards unnecessary,
-      // as positive numCards value for any market is a necessary condition for non-negative totalCards.  
-      totalCards = newMarket.numCards > 0 ? state.totalCards - 1 : state.totalCards;
-      // ensures numCards property remains non-negative
-      newMarket.numCards = newMarket.numCards > 0 ? newMarket.numCards - 1 : 0; 
-      // update percentage property for all cards for every delete card operation
-      marketList = state.marketList.map(market => {
-        market.percentCards = totalCards > 0 ? Math.round(((market.numCards / totalCards) * (100 ** 2) + Number.EPSILON)) / 100 : 0;
-        return market;
-      });
-      // reinserts current market component into marketList, 
-      // using the key property to preserve the original ordering of the market components
-      marketList[newMarket.key] = newMarket;
+    case types.DELETE_COMMENT:
+      // delete comment component
+      commentList = state.commentList.filter((el) => el.commentId !== action.payload)
+      totalComments = state.totalCards > 0 ? state.totalCards - 1 : 0;
       // update state
       return {
         ...state,
-        totalCards,
-        marketList,
+        totalComments,
+        commentList,
+      };
+    case types.CAST_UPVOTE:
+      // extract comment component where add button was clicked
+      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
+      currComment.votes.upvotes += 1
+      currComment.votes.netVotes += 1;
+      // find comment with minimum votes in topVoteList and replace it netVotes is greater
+      const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) => curr[1] < acc[1] ? curr : acc);
+      if (currComment.votes.netVotes >= minTopVotes) {
+        delete topVotedList[minTopVotesId];
+        topVotedList[currComment.commentId] = currComment.votes.netVotes;
+      }
+      // reinserts current comment component into commentList
+      commentList[currComment.key] = currComment;
+      // update state
+      return {
+        ...state,
+        topVotedList,
+        commentList,
+      };
+    case types.CAST_DOWNVOTE:
+      // extract comment component where add button was clicked
+      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
+      currComment.votes.downvotes += 1
+      currComment.votes.netVotes -= 1;
+      // find comment with minimum votes in topVoteList and if netVotes is leq, remove currComment from topVotedList
+      if (topVotedList.hasOwnProperty(currComment.commentId)) {
+        const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) => curr[1] < acc[1] ? curr : acc);
+        if (currComment.votes.netVotes <= minTopVotes) {
+          delete topVotedList[currComment.commentId];
+        }
+      }
+      // reinserts current comment component into commentList
+      commentList[currComment.key] = currComment;
+      // update state
+      return {
+        ...state,
+        topVotedList,
+        commentList,
       };
 
     default: {
@@ -126,4 +165,4 @@ const marketsReducer = (state = initialState, action) => {
   }
 };
 
-export default marketsReducer;
+export default commentReducer;
