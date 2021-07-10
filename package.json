@@ -4,7 +4,15 @@
   "description": "single forum where users can leave comments",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/server.js",
+    "build": "NODE_ENV=development webpack -w",
+    "dev": "concurrently \"NODE_ENV=production webpack serve --hot --open\" \"nodemon server/server.js\""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build/**",
+      "client/**"
+    ]
   },
   "repository": {
     "type": "git",

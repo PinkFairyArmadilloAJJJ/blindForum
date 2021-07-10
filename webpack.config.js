@@ -1,23 +1,24 @@
 const path = require('path');
-const dotenv = require('dotenv').config({
-  path: path.join(__dirname, './.env'),
-});
 const webpack = require('webpack');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv').config({
+ path: path.join(__dirname, './.env'),
+});
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, './client/index.js'),
+  entry: [
+    './client/index.js'
+  ],
   output: {
     path: path.resolve(__dirname, './build'),
     publicPath: '/',
     filename: 'bundle.js',
   },
   mode: process.env.NODE_ENV,
-  // mode: development,
   devServer: {
     host: 'localhost',
     port: 8080,
-    hot: true,
+    hot: true
     // match the output path
     contentBase: path.resolve(__dirname, './build'),
     // match the output 'publicPath'
@@ -28,8 +29,8 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       // express/postman calls to endpoints
-      '/stock/**': {  // '/api/**'
-        target: 'http://localhost:3000',
+      '/api': {
+        target: 'http://localhost:4000',
         secure: false,
       },
     },
@@ -51,14 +52,14 @@ module.exports = {
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-    ],
+    ]
   },
   resolve: {
     extensions: [".js", ".jsx"],
-  }
-  // plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: path.resolve(__dirname, "./index.html")
-    // }),
-  // ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "./index.html")
+    }),
+  ],
 };
