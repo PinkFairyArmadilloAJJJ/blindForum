@@ -9,12 +9,58 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.resolve(__dirname, '../build')));
 
-// // serve index.html on the route '/'
-// app.get('/', (req, res) => {
-//   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
-// });
+ // serve index.html on the route '/'
+ app.get('/', (req, res) => {
+   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+});
+
+// /**
+// * signup
+// */
+app.get('/signup', (req, res) => {
+  res.render('./../client/signup', {error: null});
+});
+
+app.post('/signup', 
+  userController.createUser,
+  //sessionController.startSession,
+  //cookieController.setSSIDCookie, 
+  (req, res) => {
+    // what should happen here on successful sign up?
+    res.redirect('/secret');
+});
+
+
+
+/**
+* login
+*/
+
+/*
+
+app.post('/login', 
+  userController.verifyUser, 
+  (req, res) => {
+
+    // what should happen here on successful log in?
+    if (res.locals.matchedUser?.password !== req.body.password) {
+      res.locals.matchedUser?.username === req.body.username 
+        ? res.render('./../client/signup', {error: 'wrong password'})
+        : res.render('./../client/signup', {error: 'wrong username'});
+    }
+
+    // successful login redirects to /secret
+    //res.redirect('/secret');
+  }
+);
+
+*/
+
+
 
 // TODO: move api key to .env file
 // mongoose.connect(
@@ -64,39 +110,10 @@ app.use(express.static(path.resolve(__dirname, '../build')));
 // );
 
 
-// /**
-// * signup
-// */
-// app.get('/signup', (req, res) => {
-//   res.render('./../client/signup', {error: null});
-// });
-
-// app.post('/signup', 
-//   userController.createUser,
-//   sessionController.startSession,
-//   cookieController.setSSIDCookie, 
-//   (req, res) => {
-//     // what should happen here on successful sign up?
-//     res.redirect('/secret');
-// });
 
 
-// /**
-// * login
-// */
-// app.post('/login', 
-//   userController.verifyUser, 
-//   (req, res) => {
-//     // what should happen here on successful log in?
-//     // if (res.locals.matchedUser?.password !== req.body.password) {
-//     //   res.locals.matchedUser?.username === req.body.username 
-//     //     ? res.render('./../client/signup', {error: 'wrong password'});
-//     //     : res.render('./../client/signup', {error: 'wrong username'});
-//     // }
-//     // successful login redirects to /secret
-//     res.redirect('/secret');
-//   }
-// );
+
+
 
 
 // /**
