@@ -10,6 +10,7 @@
  */
 
 import React, { useState } from 'react';
+import Login from './Login'
 // import { View, Button, Overlay } from 'react-native-elements';
 
 const Header = props => {
@@ -21,7 +22,8 @@ const Header = props => {
   return (
     <div>
       <p>Testing header</p>
-      <button onClick={AUTH_USER}>Sign In</button>
+      {/* <button onClick={}>Sign In</button> */}
+      <Login />
     </div>
   );
 }

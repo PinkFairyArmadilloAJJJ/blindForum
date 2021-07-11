@@ -33,3 +33,20 @@ class MainContainer extends Component {
 }
 // export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
 export default MainContainer;
+
+/**
+ * GET/POST requests
+ */
+
+ componentDidMount() {
+  fetch('/api/')
+    .then(res => res.json())
+    .then((characters) => {
+      if (!Array.isArray(characters)) characters = [];
+      return this.setState({
+        characters,
+        fetchedChars: true
+      });
+    })
+    .catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+}
