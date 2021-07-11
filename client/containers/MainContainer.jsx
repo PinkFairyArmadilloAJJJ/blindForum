@@ -11,22 +11,25 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CommentsContainer from '../components/containers/CommentsContainer';
+import Header from '../components/Header'; 
+// import Login from '../components/login';
+// import CommentsContainer from '../containers/CommentsContainer';
 
 class MainContainer extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+  // };
 
-    render() {
-      console.log('From MainContainer...');
-
-      return(
-        <div>
-          <CommentsContainer />
-        </div>
-      );
-    }
-  }
+  render() {
+    return(
+      <div>
+        <p>Testing MainContainer</p>
+        <LoginForm isShowLogin={isShowLogin} />
+        <Header />
+        {/* <CommentsContainer /> */}
+      </div>
+    );
+  };
 }
-
 // export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default MainContainer;

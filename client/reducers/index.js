@@ -13,6 +13,7 @@ import { combineReducers } from 'redux';
 
  // import all reducers here
  import commentReducer from './commentReducer';
+ import userReducer from './userReducer';
  
  
  // combine reducers
