@@ -28,9 +28,6 @@ app.use('/api/comment', commentRouter);
 // statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.resolve(__dirname, '../build')));
 
-// serve index.html on the route '/'
-app.get('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../index.html')));
-
 // TODO: move api key to .env file
 /*
 mongoose

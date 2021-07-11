@@ -12,32 +12,32 @@
  import * as types from '../constants/actionTypes';
 
 // dummy test case
-const initialState = {
-  totalComments: 10,
-  lastCommentId: 0010,
-  lastCommentTimestamp: Date.now(),
-  topVotedList: {
-    0003: 32,
-    0007: 20,
-  },
-  commentList: [
-    {
-      commentId: 0003,
-      contents: 'Good point!',
-      metadata: {
-        username = 'Jinhee',
-        timestamp = Date.now(),
-      },
-      votes: {
-        netVotes: 10,
-        upvotes: 12, 
-        downvotes: 2,
-      },
-      parentId: 0001,
-      depthLevel: 1
-    },
-  ]
-};
+// const initialState = {
+//   totalComments: 10,
+//   lastCommentId: 0010,
+//   lastCommentTimestamp: Date.now(),
+//   topVotedList: {
+//     0003: 32,
+//     0007: 20,
+//   },
+//   commentList: [
+//     {
+//       commentId: 0003,
+//       contents: 'Good point!',
+//       metadata: {
+//         username = 'Jinhee',
+//         timestamp = Date.now(),
+//       },
+//       votes: {
+//         netVotes: 10,
+//         upvotes: 12, 
+//         downvotes: 2,
+//       },
+//       parentId: 0001,
+//       depthLevel: 1
+//     },
+//   ]
+// };
 
 // newComment = {
 //     commentId: state.lastCommentId + 1,
@@ -64,7 +64,7 @@ const initialState = {
 //   commentList: [],
 // };
 
-const commentReducer = (state = initialState, action) => {
+const commentReducer = (state, action) => {
   switch (action.type) {
     case types.ADD_COMMENT:
       // increment lastCommentId and totalComments counters
@@ -75,9 +75,9 @@ const commentReducer = (state = initialState, action) => {
         commentId: state.lastCommentId + 1,
         contents: action.payload.contents,
         metadata: {
-          userId = action.payload.userId,
-          createTimestamp = Date.now(),
-          editTimestamp = null,
+          userId: action.payload.userId,
+          createTimestamp: Date.now(),
+          editTimestamp: null,
         },
         votes: {
           netVotes: 0,

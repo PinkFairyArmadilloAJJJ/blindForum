@@ -9,15 +9,21 @@
  * ************************************
  */
 
- import React from 'react';
+import React, { useState } from 'react';
+// import { View, Button, Overlay } from 'react-native-elements';
 
- const header = props => (
-     <div className = "header">
-       {/* display header info */}
-       <div >{props.name}</div>
+const header = props => {
+  const [visible, setVisible] = useState(false);
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };  
 
-       {/* login/sign-in button */}
-     </div>
-   )
- 
- export default header;
+  return (
+    <div>
+      <p>Testing header</p>
+      <button onClick={toggleOverlay}>Sign In</button>
+    </div>
+  );
+}
+
+export default header;

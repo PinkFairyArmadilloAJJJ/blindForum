@@ -9,12 +9,14 @@
  * ************************************
  */
 
-import { createStore, applyMiddleware, Store } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers/index';
 
-const store: Store<ArticleState, ArticleAction> & {
-  dispatch: DispatchType
-} = createStore(reducers, applyMiddleware(thunk), composeWithDevTools());
+// we are adding composeWithDevTools here to get easy access to the Redux dev tools
+const store = createStore(
+  reducers,
+  composeWithDevTools()
+);
+
 export default store;

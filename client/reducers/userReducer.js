@@ -1,3 +1,16 @@
+/**
+ * ************************************
+ *
+ * @module  userReducer
+ * @author
+ * @date
+ * @description reducer for user account data
+ *
+ * ************************************
+ */
+
+ import * as types from '../constants/actionTypes';
+
 // dummy data
 const initialState = {
   username: '',
@@ -15,3 +28,7 @@ const userReducer = (state = initialState, action) => {
           ...state,
 
         };
+    }
+  };
+
+export default userReducer;
