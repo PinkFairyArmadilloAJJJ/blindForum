@@ -1,17 +1,22 @@
 const express = require('express');
 const commentController = require('../controllers/commentController');
+
 const router = express.Router();
 
-router.get('/',
-  //userController.getUsers,
-  (req, res) => res.status(200).json(res.locals.users)
+/*
+ * pulling comments to homepage
+ */
+
+router.get('/getcomments', commentController.getComments, (req, res) =>
+  res.status(200).json(res.locals.comments)
 );
 
 /*
-router.post('/character',
-  starWarsController.addCharacter,
-  (req, res) => res.status(200).json({})
+ * posting comments
+ */
+
+router.post('/postcomments', commentController.postComment, (req, res) =>
+  res.status(200).json({ commentPosted: 'commentPosted' })
 );
-*/
 
 module.exports = router;
