@@ -12,7 +12,7 @@
 import React, { Component } from 'react';
 import MainContainer from './containers/MainContainer';
 
-function App() {
+class App extends Component {
   constructor(props) {
     super(props);
   }

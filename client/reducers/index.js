@@ -19,6 +19,7 @@ import { combineReducers } from 'redux';
  const reducers = combineReducers({
    // if we had other reducers, they would go here
    comment: commentReducer,
+   user: userReducer,
  });
  
  // make the combined reducers available for import

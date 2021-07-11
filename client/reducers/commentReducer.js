@@ -25,7 +25,7 @@ const initialState = {
       commentId: 0003,
       contents: 'Good point!',
       metadata: {
-        userId = 0001,
+        username = 'Jinhee',
         timestamp = Date.now(),
       },
       votes: {

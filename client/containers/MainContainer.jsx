@@ -11,17 +11,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
- // import from child components...
-import CommentChainDisplay from '../components/CommentChainDisplay.jsx';
-
-// mapStateToProps
-// function mapStateToProps (state) {
-//   // destructure for comment
-//   const { comment } = state;
-
-//   return {comment : comment};
-// }
-
+import CommentsContainer from '../components/containers/CommentsContainer';
 
 class MainContainer extends Component {
   constructor(props) {
@@ -32,11 +22,11 @@ class MainContainer extends Component {
 
       return(
         <div>
-          <CommentChainDisplay comment = {}/>
+          <CommentsContainer />
         </div>
       );
     }
   }
 }
 
-// export default connect(mapStateToProps, null) (MainContainer);
+// export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

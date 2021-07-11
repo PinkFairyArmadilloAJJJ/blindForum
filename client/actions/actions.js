@@ -14,7 +14,7 @@ import * as types from '../constants/actionTypes.js';
 
 
 // Add new Comment action creator
-export const addCommentActionCreator = (contents, userId, parentId) => ({
+export const addCommentActionCreator = (contents, username, parentId) => ({
   type: types.ADD_COMMENT,
   payload: {
     contents,
@@ -50,14 +50,21 @@ export const castDownvoteActionCreator = (commentId) => ({
   payload: commentId,
 });
 
-// Add User action creator  
-export const addUserActionCreator = () => ({
-  // type: ?
+// Add User action creator
+export const addUserActionCreator = (username, password, nickname, email) => ({
+  type: types.ADD_USER,
+  payload: {
+    username,
+    password,
+    nickname,
+    email,
+  },
 });
-/*
-// Add User action creator 
-export const deleteCardActionCreator = marketId => ({
-  type: types.DELETE_CARD,
-  payload: marketId,
-});
-*/
+
+export const authUserActionCreator = (username, password) => ({
+  type: types.AUTH_USER,
+  payload: {
+    username,
+    password,
+  },
+})
