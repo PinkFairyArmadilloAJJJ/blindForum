@@ -9,18 +9,20 @@
  * ************************************
  */
 
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 
  // import all reducers here
+ import commentReducer from './commentReducer';
  
  
  // combine reducers
- /*
  const reducers = combineReducers({
    // if we had other reducers, they would go here
+   comment: commentReducer,
+   user: userReducer,
  });
- */
+ 
  // make the combined reducers available for import
- //export default reducers;
+ export default reducers;
  
  
