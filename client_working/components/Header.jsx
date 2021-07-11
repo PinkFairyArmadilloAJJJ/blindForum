@@ -13,15 +13,15 @@ import React, { useState } from 'react';
 // import { View, Button, Overlay } from 'react-native-elements';
 
 const Header = props => {
-  // const [visible, setVisible] = useState(false);
-  // const toggleOverlay = () => {
-  //   setVisible(!visible);
-  // };  
+  const [visible, setVisible] = useState(false);
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };  
 
   return (
     <div>
       <p>Testing header</p>
-      <button onClick={AUTH_USER}>Sign In</button>
+      <button onClick={toggleOverlay}>Sign In</button>
     </div>
   );
 }

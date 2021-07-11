@@ -12,7 +12,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header'; 
-// import Login from '../components/Login';
+import Login from '../components/Login';
 // import CommentsContainer from '../containers/CommentsContainer';
 
 class MainContainer extends Component {
@@ -24,7 +24,7 @@ class MainContainer extends Component {
     return(
       <div>
         <p>Testing MainContainer</p>
-        {/* <Login isShowLogin={isShowLogin} /> */}
+        <Login isShowLogin={isShowLogin} />
         <Header />
         {/* <CommentsContainer /> */}
       </div>

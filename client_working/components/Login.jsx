@@ -37,6 +37,7 @@ const Login = ({ isShowLogin }) => {
       </div>
     </div>
   );
+};
 
 export default Login;
 
