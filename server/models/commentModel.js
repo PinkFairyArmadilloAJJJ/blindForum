@@ -2,17 +2,7 @@ const mongoose = require('mongoose');
 
 //this string was changed slightly to work earlier.  Have pasted it with the working string
 const MONGO_URI = 'mongodb+srv://codesmithconnected:fLat$hAck!geneRal9@cluster0.1qxkl.mongodb.net/codesmithconnected?retryWrites=true&w=majority';
-
-mongoose.connect(MONGO_URI, {
-  // options for the connect method to parse the URI
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // sets the name of the DB that our collections are part of
-  dbName: 'codesmithconnected'
-})
-  .then(() => console.log('Connected to Mongo DB.'))
-  .catch(err => console.log(err));
-
+mongoose.connect(MONGO_URI)
 
 const Schema = mongoose.Schema;
 

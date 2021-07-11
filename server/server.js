@@ -1,30 +1,70 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
+// const cookieParser = require('cookie-parser');
+// const mongoose = require('mongoose');
 const pg = require('pg');
+const userRouter = require('./routes/user');
+const commentRouter = require('./routes/comments');
+
+const userController = require('./controllers/userController');
+// const commentController = require('./controllers/commentController');
+// const cookieController = require('./controllers/cookieController');
+// const sessionController = require('./controllers/sessionController');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+/**
+ * define route handlers
+ */
+
+ // app.use('/api', apiRouter);
+
+ app.use('/api/user', userRouter);
+
+ app.use('/api/comment', commentRouter);
+ 
+
 // statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.resolve(__dirname, '../build')));
 
+
  // serve index.html on the route '/'
  app.get('/', (req, res) => {
-   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+  return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
+
+
+app.get('/signup', 
+  userController.getUsers,
+  (req, res) => {
+    // what should happen here on successful sign up?
+    console.log(res);
+});
+
+
+
 
 // /**
 // * signup
 // */
+/*
 app.get('/signup', (req, res) => {
   res.render('./../client/signup', {error: null});
 });
-
+*/
+/*
+app.get('/signup', 
+  userController.getUsers,
+  (req, res) => {
+    // what should happen here on successful sign up?
+    console.log(res);
+});
+*/
+/*
 app.post('/signup', 
   userController.createUser,
   //sessionController.startSession,
@@ -33,7 +73,7 @@ app.post('/signup',
     // what should happen here on successful sign up?
     res.redirect('/secret');
 });
-
+*/
 
 
 /**
