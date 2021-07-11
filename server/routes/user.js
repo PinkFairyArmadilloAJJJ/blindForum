@@ -1,37 +1,50 @@
 const express = require('express');
 const userController = require('../controllers/userController');
-// const sessionController = require('../controllers/sessionController');
+const sessionController = require('../controllers/sessionController');
 const cookieController = require('../controllers/cookieController');
+
 const router = express.Router();
 
-router.get('/usernametest',
-  userController.getUsers,
-  (req, res) => res.status(200).json(res.locals.users)
+router.get('/getuser', userController.getUsers, (req, res) =>
+  res.status(200).json(res.locals.users)
 );
 
-router.get('/setcookietest',
-  cookieController.setCookie,
-  (req, res) => res.status(200).json(res.cookie)
-);
+router.get('/setcookie', cookieController.setCookie, (req, res) => res.status(200).end());
 
-router.post('/ssidcookietest',
+router.get(
+  '/ssidcookie',
   cookieController.setSSIDCookie,
-  (req, res) => res.status(200).json(res.cookie)
+  sessionController.startSession,
+  (req, res) => res.status(200).end()
 );
 
-router.post('/signup', userController.createUser, (res, req) => {
-  res.status(200).json(res.locals.response);
-})
+/**
+ * signup
+ */
 
-router.get('/data2', userController.verifyUser, (req, res) => {
-  res.status(200).json(res.locals.response);
-})
+router.get('/signup', (req, res) => {
+  res.status(200).json({ test: 'test' });
+  // res.render('../../client/signup', { error: null });
+});
 
-/*
-router.post('/character',
-  starWarsController.addCharacter,
-  (req, res) => res.status(200).json({})
+router.post(
+  '/signup',
+  userController.createUser,
+  cookieController.setSSIDCookie,
+  // sessionController.startSession,
+  (req, res) => {
+    // res.redirect('../../client/components/comments');
+    console.log('signup success');
+    // res.status(200).json(req.query);
+    // res.render('../../client/signin', { error: null });
+  }
 );
-*/
+
+// router.post('/login', )
+
+router.post('/signin', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
+  res.status(200).json('signin success');
+  // res.render('../../client/comment', { error: null });
+});
 
 module.exports = router;
