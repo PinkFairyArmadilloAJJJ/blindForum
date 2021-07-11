@@ -12,7 +12,7 @@
 import React, { Component } from 'react';
 import MainContainer from './containers/MainContainer';
 
-class App extends Component {
+export  App() {
   constructor(props) {
     super(props);
   }

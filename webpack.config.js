@@ -1,14 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv').config({
- path: path.join(__dirname, './.env'),
+  path: path.join(__dirname, './.env'),
 });
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [
-    './client/index.js'
-  ],
+  entry: ['./client/index.js'],
   output: {
     path: path.resolve(__dirname, './build'),
     publicPath: '/',
@@ -18,7 +16,7 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8080,
-    hot: true
+    hot: true,
     // match the output path
     contentBase: path.resolve(__dirname, './build'),
     // match the output 'publicPath'
@@ -38,12 +36,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/i,
+        test: /\.[jt]sx?$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
           },
         },
       },
@@ -52,14 +50,14 @@ module.exports = {
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-    ]
+    ],
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx', 'ts', 'tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./index.html")
+      template: path.resolve(__dirname, './index.html'),
     }),
   ],
 };
