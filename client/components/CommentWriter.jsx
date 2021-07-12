@@ -12,11 +12,10 @@
  import React from 'react';
 
  const writeComment= props => (
-     <div id = "writeComment">
-       {/* setAction needs to be updated */}
-       <input type='text' onChange={(event) => props.setAction(event.target.value)}></input>
-       <button type='button' id='addComment' onClick={props.addComment}>submit</button>
-     </div>
-   )
- 
+  <form id = "writeComment">
+    <input type='textarea'></input>
+    <button type='submit' id='addComment' onClick={(event) => props.addComment(event.target.value)}>Submit</button>
+  </form>
+);
+
  export default writeComment;

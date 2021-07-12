@@ -12,10 +12,11 @@
 import React, { Component } from 'react';
 import MainContainer from './containers/MainContainer';
 
+// const App = (props) => {
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
@@ -24,7 +25,7 @@ class App extends Component {
         <MainContainer />
       </div>
     );
-  }
+  };
 }
 
 export default App;

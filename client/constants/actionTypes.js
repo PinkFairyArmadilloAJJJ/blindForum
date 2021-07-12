@@ -20,6 +20,6 @@ export const CAST_DOWNVOTE = 'CAST_DOWNVOTE';
 
 // Users constants
 export const ADD_USER = 'ADD_USER';
-export const AUTH_USER = 'AUTH_USER'
+export const AUTH_USER = 'AUTH_USER';
 // export const EDIT_USER = 'EDIT_USER';
 // export const DELETE_USER = 'DELETE_USER';

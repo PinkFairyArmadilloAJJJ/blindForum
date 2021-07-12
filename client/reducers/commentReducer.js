@@ -56,15 +56,15 @@
 //     depthLevel: 0
 // }
 
-// const initialState = {
-//   totalComments: 0,
-//   lastCommentId: 0,
-//   lastCommentTimestamp: Date(),
-//   topVotedList: [],
-//   commentList: [],
-// };
+const initialState = {
+  totalComments: 0,
+  lastCommentId: 0,
+  lastCommentTimestamp: new Date(),
+  topVotedList: [],
+  commentList: [],
+};
 
-const commentReducer = (state, action) => {
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_COMMENT:
       // increment lastCommentId and totalComments counters
@@ -161,7 +161,7 @@ const commentReducer = (state, action) => {
 
     default: {
       return state;
-    }
+    };
   }
 };
 

@@ -18,7 +18,7 @@ export const addCommentActionCreator = (contents, username, parentId) => ({
   type: types.ADD_COMMENT,
   payload: {
     contents,
-    userId,
+    username,
     parentId,
   }
 });
