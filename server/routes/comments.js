@@ -7,7 +7,7 @@ const router = express.Router();
  * pulling comments to homepage
  */
 
-router.get('/getcomments', commentController.getComments, (req, res) =>
+router.get('/get', commentController.getComments, (req, res) =>
   res.status(200).json(res.locals.comments)
 );
 
@@ -15,7 +15,7 @@ router.get('/getcomments', commentController.getComments, (req, res) =>
  * posting comments
  */
 
-router.post('/postcomments', commentController.postComment, (req, res) =>
+router.post('/post', commentController.postComment, (req, res) =>
   res.status(200).json({ commentPosted: 'commentPosted' })
 );
 
