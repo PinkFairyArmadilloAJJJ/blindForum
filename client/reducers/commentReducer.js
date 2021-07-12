@@ -43,7 +43,7 @@
 //     commentId: state.lastCommentId + 1,
 //     contents: '',
 //     metadata: {
-//         userId = 0,
+//         username = 0,
 //         createTimestamp = Date.now(),
 //         editTimestamp = null,
 //     },
@@ -56,16 +56,32 @@
 //     depthLevel: 0
 // }
 
-// const initialState = {
-//   totalComments: 0,
-//   lastCommentId: 0,
-//   lastCommentTimestamp: Date(),
-//   topVotedList: [],
-//   commentList: [],
-// };
+const initialState = {
+  totalComments: 0,
+  lastCommentId: 0,
+  lastCommentTimestamp: new Date(),
+  topVotedList: [],
+  commentList: [],
+};
 
-const commentReducer = (state, action) => {
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.GET_COMMENTS:
+      fetch('/api/comment/get', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          commentList.concat(data.rows)
+        })
+        .catch(err => console.error(err));
+      return {
+        ...state,
+        commentList,
+      }
     case types.ADD_COMMENT:
       // increment lastCommentId and totalComments counters
       lastCommentId = state.lastCommentId + 1;
@@ -75,7 +91,7 @@ const commentReducer = (state, action) => {
         commentId: state.lastCommentId + 1,
         contents: action.payload.contents,
         metadata: {
-          userId: action.payload.userId,
+          username: action.payload.username,
           createTimestamp: Date.now(),
           editTimestamp: null,
         },
@@ -90,6 +106,17 @@ const commentReducer = (state, action) => {
       // push the new comment onto a copy of the comment list
       commentList = state.commentList.slice();
       commentList.push(newComment);
+      // send to db
+      fetch('/api/comment/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: { ...newComment },
+      })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err));
       // update state
       return {
         ...state,
@@ -161,7 +188,7 @@ const commentReducer = (state, action) => {
 
     default: {
       return state;
-    }
+    };
   }
 };
 

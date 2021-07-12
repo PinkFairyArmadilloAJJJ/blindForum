@@ -18,6 +18,11 @@ router.get(
   (req, res) => res.status(200).end()
 );
 
+router.post('/signin', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
+  res.status(200).json('signin success');
+  // res.render('../../client/comment', { error: null });
+});
+
 /**
  * signup
  */
@@ -39,12 +44,5 @@ router.post(
     // res.render('../../client/signin', { error: null });
   }
 );
-
-// router.post('/login', )
-
-router.post('/signin', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
-  res.status(200).json('signin success');
-  // res.render('../../client/comment', { error: null });
-});
 
 module.exports = router;

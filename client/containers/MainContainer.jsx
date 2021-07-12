@@ -11,25 +11,41 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from '../components/Header'; 
-// import Login from '../components/login';
-// import CommentsContainer from '../containers/CommentsContainer';
+import Header from '../components/Header';
+import CommentsContainer from '../containers/CommentsContainer';
 
+const mapStateToProps = (state) => {
+  const {
+    username,
+    password,
+    nickname,
+    email,
+  } = state;
+  return { username, password, nickname, email };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  // create functions that will dispatch action creators
+  addUser: (username, password, nickname, email) => dispatch(actions.addUserActionCreator(username, password, nickname, email)),
+  authUser: (username, password) => dispatch(actions.authUserActionCreator(username, password)),
+  // deleteUser: (username) => dispatch(actions.deleteUserActionCreator(username)),
+});
+
+// const MainContainer = (props) => {
 class MainContainer extends Component {
-  // constructor(props) {
-  //   super(props);
-  // };
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return(
       <div>
-        <p>Testing MainContainer</p>
-        <LoginForm isShowLogin={isShowLogin} />
+        <p>Testing MainContainer...</p>
         <Header />
-        {/* <CommentsContainer /> */}
+        <CommentsContainer />
       </div>
     );
-  };
-}
-// export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
-export default MainContainer;
+  }
+};
+// export default MainContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

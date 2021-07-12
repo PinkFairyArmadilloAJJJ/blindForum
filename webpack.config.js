@@ -27,7 +27,7 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       // express/postman calls to endpoints
-      '/api': {
+      '/api/**': {
         target: 'http://localhost:4000',
         secure: false,
       },
