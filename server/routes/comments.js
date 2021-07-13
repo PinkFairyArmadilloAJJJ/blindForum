@@ -16,7 +16,7 @@ router.get('/get', commentController.getComments, (req, res) =>
  */
 
 router.post('/post', commentController.postComment, (req, res) =>
-  res.status(200).json({ commentPosted: 'commentPosted' })
+  res.status(200).end('comment posted')
 );
 
 module.exports = router;

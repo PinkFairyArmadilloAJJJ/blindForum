@@ -13,6 +13,7 @@ commentController.getComments = (req, res, next) => {
     if (err) {
       return next(`Error in commentController.getComments: ${JSON.stringify(err)}`);
     }
+    // console.log(comments);
     res.locals.comments = comments;
     return next();
   });
@@ -26,11 +27,12 @@ commentController.postComment = (req, res, next) => {
   // const { username, password } = req.body;
   Comment.create(req.body, (err, data) => {
     if (err) {
-      res.render('error from createComment');
+      console.error(err);
+      res.end('error from createComment');
       // res.render('./../client/signup', { error: err });
-      res.end();
-      // return next(err);
     } else {
+      console.log(data);
+      // data.save();
       return next();
     }
   });

@@ -13,11 +13,11 @@ import React from 'react';
 
 const Comment = (props) => (
   <div className = "comment">
-    <p>Testing Comment...</p>
-    {/* display name/nickename, timeStamp */}
-    <div >{props.name}{props.timeStamp}minutes ago</div>
-    {/* Display comment */}
-    <div>{props.comment}</div>
+    {/* <p>Testing Comment...</p> */}
+    <div >
+      {props.metadata.userId} {props.metadata.timestamp}
+    </div>
+    <div>{props.contents}</div>
   </div>
 );
 

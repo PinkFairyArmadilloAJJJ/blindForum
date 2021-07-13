@@ -10,38 +10,59 @@
  */
 
 import React, { Component } from "react";
+import "../App.css";
 
 // const LoginForm = (props) => {
-class LoginForm extends Component {
+  class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.handleLogin = this.handleLogin.bind(this);
   };
+
+  handleLogin(event) {
+    event.preventDefault();
+    const reqValues = [...Object.values(event.target).slice(0, 2).map(input => input.value)];
+    const reqObj = Object.fromEntries(
+      ['username', 'password']
+        .map((k, i) => [k, reqValues[i]])
+    );
+    fetch('http://localhost:4000/api/user/signin', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: { ...reqObj },
+      }
+    )
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+  }
 
   render() {
     return (
       <div className="login-form">
-        <form>
+        <form onSubmit={this.handleLogin}>
           <h1 className="login-text">Sign In</h1>
-          <label>Username</label><br></br>
+          <label>Username</label>
+          <br></br>
           <input
-            type="text"
+            type="username"
             name="username"
             className="login-box"
           /><br></br>
-          <label>Password</label><br></br>
+
+          <label>Password</label>
+          <br></br>
           <input
             type="password"
             name="password"
             className="login-box"
           /><br></br>
-          <input
+
+          <button
             type="submit"
-            value="LOGIN"
             className="login-btn"
-            // onClick={(event) => props.authUser(...event.target.value)}
-          />
+          >Login</button>
         </form>
-      </div>
+    </div>
     );
   };
 };

@@ -1,0 +1,65 @@
+[
+  {
+    "commentId": "36",
+    "contents": "Here's a question that I've been wondering about for a while:
+    What happens if your fundamental attributions grow up from proximate personal narratives into a social philosophy?    Perhaps one where you understand yourself as some worthy ingroup whose shortcomings are primarily functions of imposed circumstance, with the shortcomings of outsiders primarily being functions of their character failings?",
+    metadata: {
+      suername:"Jongsun",
+
+
+            "timestamp": Date.now(),
+    },
+    votes: {
+      "netVotes": "10",
+      "upvotes": "12", 
+      "downvotes": "2",
+    },
+    "parentId": "1",
+    "depthLevel": "1"
+  },
+  {
+    "commentId": "36",
+    "contents": "Good point!",
+    "metadata": {
+      "username": "Jinhee",
+      "timestamp": Date.now(),
+    },
+    votes: {
+      "netVotes": "10",
+      "upvotes": "12", 
+      "downvotes": "2",
+    },
+    "parentId": "1",
+    "depthLevel": "1"
+  },
+  {
+    "commentId": "36",
+    "contents": "Good point!",
+    "metadata": {
+      "username": "Anthony",
+      "timestamp": Date.now(),
+    },
+    "votes": {
+      "netVotes": "10",
+      "upvotes": "12", 
+      "downvotes": "2",
+    },
+    "parentId": "1",
+    "depthLevel": "1"
+  },
+  {
+    "commentId": "36",
+    "contents": "Good point!",
+    "metadata": {
+      "username": "May",
+      "timestamp": "Date.now()",
+    },
+    "votes": {
+      "netVotes": "10",
+      "upvotes": "12", 
+      "downvotes": "2",
+    },
+    "parentId": "1",
+    "depthLevel": "1"
+  }
+]

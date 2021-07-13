@@ -9,112 +9,98 @@
  * ************************************
  */
 
- import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes';
 
 // dummy test case
-// const initialState = {
-//   totalComments: 10,
-//   lastCommentId: 0010,
-//   lastCommentTimestamp: Date.now(),
-//   topVotedList: {
-//     0003: 32,
-//     0007: 20,
-//   },
-//   commentList: [
-//     {
-//       commentId: 0003,
-//       contents: 'Good point!',
-//       metadata: {
-//         username = 'Jinhee',
-//         timestamp = Date.now(),
-//       },
-//       votes: {
-//         netVotes: 10,
-//         upvotes: 12, 
-//         downvotes: 2,
-//       },
-//       parentId: 0001,
-//       depthLevel: 1
-//     },
-//   ]
-// };
-
-// newComment = {
-//     commentId: state.lastCommentId + 1,
-//     contents: '',
-//     metadata: {
-//         username = 0,
-//         createTimestamp = Date.now(),
-//         editTimestamp = null,
-//     },
-//     votes: {
-//         netVotes: 0,
-//         upvotes: 0, 
-//         downvotes: 0,
-//     },
-//     parentId: null,
-//     depthLevel: 0
-// }
-
 const initialState = {
-  totalComments: 0,
-  lastCommentId: 0,
-  lastCommentTimestamp: new Date(),
-  topVotedList: [],
-  commentList: [],
+  totalComments: 10,
+  lastCommentId: 4,
+  lastCommentTimestamp: Date.now(),
+  topVotedList: {
+    // 0003: 32,
+    // 0007: 20,
+  },
+  commentList: [
+    {
+      commentId: 36,
+      contents: 'Good point!',
+      metadata: {
+        username: 'Jinhee',
+        timestamp: Date.now(),
+      },
+      votes: {
+        netVotes: 10,
+        upvotes: 12, 
+        downvotes: 2,
+      },
+      parentId: 1,
+      depthLevel: 1
+    },
+  ]
 };
 
+// newComment = {
+    // "commentId": 1110,
+    // "contents": "post comment test 001",
+    // "metadata": {
+    //   "username": "jongsun",
+    //   "createTimestamp": 1626115310930,
+    //   editTimestamp: null
+    // },
+    // "votes": {
+    //   "netVotes": 0,
+    //   "upvotes": 0, 
+    //   "downvotes": 0
+    // },
+    // "parentId": 1100,
+    // "depthLevel": 2
+// }
+
+// const initialState = {
+//   totalComments: 0,
+//   lastCommentId: 0,
+//   lastCommentTimestamp: new Date(),
+//   topVotedList: [],
+//   commentList: [],
+// };
+
 const commentReducer = (state = initialState, action) => {
+  let lastCommentId, totalComments, newComment, commentList, currComment, topVotedList;
   switch (action.type) {
-    case types.GET_COMMENTS:
-      fetch('/api/comment/get', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(res => res.json())
-        .then(data => {
-          commentList.concat(data.rows)
-        })
-        .catch(err => console.error(err));
-      return {
-        ...state,
-        commentList,
-      }
     case types.ADD_COMMENT:
       // increment lastCommentId and totalComments counters
       lastCommentId = state.lastCommentId + 1;
       totalComments = state.totalComments + 1;
       // create new comment component from provided data
       newComment = {
-        commentId: state.lastCommentId + 1,
-        contents: action.payload.contents,
-        metadata: {
-          username: action.payload.username,
-          createTimestamp: Date.now(),
-          editTimestamp: null,
+        'commentId': state.lastCommentId + 1,
+        'contents': action.payload.contents,
+        'metadata': {
+          'username': action.payload.username,
+          'timestamp': Date.now(),
+          // editTimestamp: null,
         },
-        votes: {
-          netVotes: 0,
-          upvotes: 0, 
-          downvotes: 0,
+        'votes': {
+          'netVotes': 0,
+          'upvotes': 0, 
+          'downvotes': 0,
         },
-        parentId: action.payload.parentId,
-        depthLevel: commentList.filter((el) => el.commentId === parentId).pop().depthLevel + 1,
-      }
+        'parentId': action.payload.parentId,
+        // depthLevel: commentList.filter((el) => el.commentId === parentId).pop().depthLevel + 1,
+      };
       // push the new comment onto a copy of the comment list
       commentList = state.commentList.slice();
       commentList.push(newComment);
       // send to db
-      fetch('/api/comment/post', {
+      fetch('http://localhost:4000/api/comment/post', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        mode: 'no-cors',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         body: { ...newComment },
       })
-        .then(res => res.json())
+        // .then(res => res.json())
         .then(data => console.log(data))
         .catch(err => console.error(err));
       // update state

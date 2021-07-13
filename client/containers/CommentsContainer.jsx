@@ -11,12 +11,14 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../actions/actions'
 // import from child components...
 import CommentsDisplay from '../components/CommentChainDisplay.jsx';
 import CommentWriter from '../components/CommentWriter.jsx';
  
 const mapStateToProps = (state) => {
   const {
+    currentUser,
     totalComments, 
     lastCommentId, 
     lastCommentTimestamp, 
@@ -24,6 +26,7 @@ const mapStateToProps = (state) => {
     commentList,
   } = state;
   return {
+    currentUser,
     totalComments,
     lastCommentId,
     lastCommentTimestamp, 
@@ -45,13 +48,16 @@ class CommentsContainer extends Component {
   constructor(props) {
     super(props);
   };
- 
+
   render() {
     return(
       <div>
         <p>Testing CommentsContainer...</p>
         <CommentsDisplay />
-        <CommentWriter />
+        <CommentWriter 
+          addComment={this.props.addComment}
+          currentUser={this.props.currentUser}
+        />
       </div>
     );
   };
