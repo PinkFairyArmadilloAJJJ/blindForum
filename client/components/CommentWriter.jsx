@@ -9,13 +9,28 @@
  * ************************************
  */
 
- import React from 'react';
+ import React, { Component } from 'react';
 
- const writeComment= props => (
-  <form id = "writeComment">
-    <input type='textarea'></input>
-    <button type='submit' id='addComment' onClick={(event) => props.addComment(event.target.value)}>Submit</button>
-  </form>
-);
+class CommentWriter extends Component {
+  constructor(props) {
+    super(props);
+    this.handlePost = this.handlePost.bind(this);
+  }
+  
+  handlePost(event) {
+    event.preventDefault();
+    this.props.addComment(event.target.value, this.props.currentUser, 0);
+  }
 
- export default writeComment;
+  render() {
+    return (
+      <form id = "writeComment" >
+        <input type='textarea' rows="4" cols="50"></input>
+        <br></br>
+        <button type='submit' id='addComment' onClick={this.handlePost}>Add Comment</button>
+      </form>
+    );
+  }
+}
+
+export default CommentWriter;

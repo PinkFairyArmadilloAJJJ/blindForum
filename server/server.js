@@ -8,6 +8,8 @@ const express = require('express');
 const userRouter = require('./routes/user');
 const commentRouter = require('./routes/comments');
 
+const userController = require('./controllers/userController')
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +44,13 @@ mongoose
  */
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
+
+app.get('/secret',
+  userController.verifyUser,
+  (req, res) => {
+    res.status(200).end('../client/secret', { currentUser: res.locals.currentUser })
+  }
+)
 
 /**
  * 404 handler

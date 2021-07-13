@@ -9,16 +9,21 @@
  * ************************************
  */
 
-import React from 'react';
-import LoginForm from './LoginForm';
+import React, { Component } from 'react';
 
-const Header = (props) => {
-  return (
-    <div>
-      <p>Testing Header...</p>
-      <LoginForm />
-    </div>
-  );
+class Header extends Component {
+  constructor (props) {
+    super(props);
+  }
+
+  render () {
+    return (
+      <div className = "header">
+        {/* <p>Testing loginHeader...</p> */}
+        {/* <LoginForm authUser={this.props.authUser} addUser={this.props.addUser}/> */}
+      </div>
+    );
+  }
 };
 
 export default Header;

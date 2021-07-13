@@ -64,9 +64,11 @@ userController.verifyUser = (req, res, next) => {
     const dbpw = { ...response.rows }['0'].password;
     // console.log('password: ', password);
     if (err || password !== dbpw) {
-      console.log(err);
-      // res.render('./..client/login');
+      console.error(err);
     } else {
+      console.log(response);
+      // res.status(200).end('../..client/secret');
+      res.status(200).send('login successful!');
       return next();
     }
   });

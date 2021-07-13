@@ -33,8 +33,8 @@ export const editCommentActionCreator = (commentId, contents) => ({
 });
 
 // delete Comment action creator
-export const deleteCardActionCreator = (commentId) => ({
-  type: types.DELETE_CARD,
+export const deleteCommentActionCreator = (commentId) => ({
+  type: types.DELETE_COMMENT,
   payload: commentId,
 });
 

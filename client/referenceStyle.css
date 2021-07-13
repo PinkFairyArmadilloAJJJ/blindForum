@@ -76,7 +76,7 @@ table.padtab td { padding:0px 10px }
   .votearrow { background-size: 10px; background-image: url("grayarrow2x.gif"); }
 }
 
-.rotate180 {
+/* .rotate180 {
   -webkit-transform: rotate(180deg);  /* Chrome and other webkit browsers */
   -moz-transform:    rotate(180deg);  /* FF */
   -o-transform:      rotate(180deg);  /* Opera */
@@ -85,7 +85,7 @@ table.padtab td { padding:0px 10px }
 
   /* IE8 and below */
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand')";
-}
+} */
 
 /* mobile device */
 @media only screen
