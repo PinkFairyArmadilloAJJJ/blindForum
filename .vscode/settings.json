@@ -1,0 +1,13 @@
+{
+    "editor.tabSize": 2,  
+    "eslint.format.enable": true,
+    "eslint.rules.customizations": [],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "eslint.workingDirectories": [
+        "./**"
+    ],
+    "eslint.lintTask.enable": true,
+}

@@ -1,125 +1,61 @@
-require('dotenv').config();
+// require('dotenv').config();
 const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
-const pg = require('pg');
+// const bodyParser = require('body-parser');
+// const cookieParser = require('cookie-parser');
+// const mongoose = require('mongoose');
+// const pg = require('pg');
+const userRouter = require('./routes/user');
+const commentRouter = require('./routes/comments');
+
+const userController = require('./controllers/userController')
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+/**
+ * define route handlers
+ */
+
+// app.use('/api', apiRouter);
+
+app.use('/api/user', userRouter);
+//  /signup
+//  /signin
+
+app.use('/api/comment', commentRouter);
+
+// statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.resolve(__dirname, '../build')));
 
-// // serve index.html on the route '/'
-// app.get('/', (req, res) => {
-//   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
-// });
-
 // TODO: move api key to .env file
-// mongoose.connect(
-//   process.env.MONGODB_URI,
-//   { useNewUrlParser: true,
-//     useUnifiedTopology: true, }
-// )
-//   .then(() => console.log('Connected to Database'))
-//   .catch((err) => console.error(err));
+/*
+mongoose
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to Database'))
+  .catch((err) => console.error(err));
+*/
 
 /**
-* Set our Express view engine as ejs.
-* This means whenever we call res.render, ejs will be used to compile the template.
-* ejs templates are located in the client/ directory
-*/
-// app.set('view engine', 'ejs');
-
-/**
-* Automatically parse urlencoded body content from incoming requests and place it
-* in req.body
-*/
+ * Automatically parse urlencoded body content from incoming requests and place it
+ * in req.body
+ */
 // app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser());
 
-
-/**
-* --- Express Routes ---
-* Express will attempt to match these routes in the order they are declared here.
-* If a route handler / middleware handles a request and sends a response without
-* calling `next()`, then none of the route handlers after that route will run!
-* This can be very useful for adding authorization to certain routes...
-*/
-
-/**
-* root
-*/
-// app.get('/', 
-//   // cookieController.setCookie, 
-//   (req, res) => {
-//     /**
-//     * Since we set `ejs` to be the view engine above, `res.render` will parse the
-//     * template page we pass it (in this case 'client/secret.ejs') as ejs and produce
-//     * a string of proper HTML which will be sent to the client!
-//     */
-//     res.render('./../client/index');
-//     // console.log(res.locals.users);
-//   }
-// );
-
-
-// /**
-// * signup
-// */
-// app.get('/signup', (req, res) => {
-//   res.render('./../client/signup', {error: null});
-// });
-
-// app.post('/signup', 
-//   userController.createUser,
-//   sessionController.startSession,
-//   cookieController.setSSIDCookie, 
-//   (req, res) => {
-//     // what should happen here on successful sign up?
-//     res.redirect('/secret');
-// });
-
-
-// /**
-// * login
-// */
-// app.post('/login', 
-//   userController.verifyUser, 
-//   (req, res) => {
-//     // what should happen here on successful log in?
-//     // if (res.locals.matchedUser?.password !== req.body.password) {
-//     //   res.locals.matchedUser?.username === req.body.username 
-//     //     ? res.render('./../client/signup', {error: 'wrong password'});
-//     //     : res.render('./../client/signup', {error: 'wrong username'});
-//     // }
-//     // successful login redirects to /secret
-//     res.redirect('/secret');
-//   }
-// );
-
-
-// /**
-// * Authorized routes
-// */
-// app.get('/secret', 
-//   sessionController.isLoggedIn,
-//   userController.getAllUsers, 
-//   (req, res) => {
-
-//     /**
-//     * The previous middleware has populated `res.locals` with users
-//     * which we will pass this in to the res.render so it can generate
-//     * the proper html from the `secret.ejs` template
-//     */
-//     res.render('./../client/secret', { users: res.locals.users });
-
-// });
+app.get('/secret',
+  userController.verifyUser,
+  (req, res) => {
+    res.status(200).end('../client/secret', { currentUser: res.locals.currentUser })
+  }
+)
 
 /**
  * 404 handler
  */
-app.use('*', (req,res) => {
+app.use('*', (req, res) => {
   res.status(404).send('Not Found');
 });
 
@@ -131,6 +67,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
-app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}...`);
+});
 
 module.exports = app;

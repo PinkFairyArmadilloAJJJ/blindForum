@@ -9,25 +9,23 @@
  * ************************************
  */
 
- import React, { Component } from 'react';
- // import MainContainer from './containers/MainContainer.jsx';
- class App extends Component {
+import React, { Component } from 'react';
+import MainContainer from './containers/MainContainer';
+
+// const App = (props) => {
+class App extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    return React.createElement('h2', null, "Hey Dude"); 
-    /*
-     return(
-       <div>
-         <MainContainer/>
-       </div>
-     );
-    */
-   }
+    return (
+      <div>
+        <p>Testing App Component...</p>
+        <MainContainer />
+      </div>
+    );
+  };
+}
 
- }
-
- export default App;
- 
+export default App;
